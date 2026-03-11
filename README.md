@@ -20,3 +20,11 @@ dataK["Total_Revenue"] = dataK["Sales"]
 # Shows relationship between price and quantity 
 sns.scatterplot(x="Final_Price", y="Quantity", data=dataK)
 plt.show()
+
+plt.figure(figsize=(10,6))
+# ci=95 adds error bars. If the bar at 13 has a very long vertical line,
+# it means the data for '13' is inconsistent or has very few rows.
+sns.barplot(x="Quantity", y="Final_Price", data=dataK, ci=95, palette="magma")
+
+plt.title("Average Unit Price by Quantity (with Confidence Intervals)")
+plt.show()
