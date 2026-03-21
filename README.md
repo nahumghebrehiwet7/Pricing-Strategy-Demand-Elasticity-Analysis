@@ -21,6 +21,18 @@ dataK["Total_Revenue"] = dataK["Sales"]
 sns.scatterplot(x="Final_Price", y="Quantity", data=dataK)
 plt.show()
 
+# Generating demand elasticity and running a regression attempt
+dataK = dataK[(dataK["Quantity"] > 0) & (dataK["Final_Price"] > 0)]
+dataK["log_price"] = np.log(dataK["Final_Price"])
+dataK["log_quantity"] = np.log(dataK["Quantity"])
+
+import statsmodels.api as sm
+
+X = sm.add_constant(dataK["log_price"])
+model = sm.OLS(dataK["log_quantity"], X).fit()
+
+print(model.summary())
+
 plt.figure(figsize=(10,6))
 # ci=95 adds error bars. If the bar at 13 has a very long vertical line,
 # it means the data for '13' is inconsistent or has very few rows.
